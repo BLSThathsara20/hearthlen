@@ -4,7 +4,7 @@ subtitle: "On-device memory for an offline assistant. Screen context without a s
 slug: local-ai-assistant-learns-your-habits
 seo_title: "Local AI Assistant That Learns Your Habits"
 seo_description: "Savindu Thathsara explains an on-device AI assistant that learns routines from use, stores them locally, and lets you read, delete, or pause every habit."
-series: "Offline AI OS"
+series: "Hearthlen"
 devto_tags: ai, privacy, linux, productivity
 hashnode_tags:
   - ai-agents

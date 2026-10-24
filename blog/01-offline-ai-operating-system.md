@@ -4,7 +4,7 @@ subtitle: "A local assistant for a normal laptop. No cloud model API."
 slug: offline-ai-operating-system-8gb-laptop
 seo_title: "Offline AI OS for an 8GB Laptop | Savindu Thathsara"
 seo_description: "Savindu Thathsara is building a lightweight Linux OS with a local AI assistant. No cloud model API. It learns your routines and runs on 8GB of RAM."
-series: "Offline AI OS"
+series: "Hearthlen"
 devto_tags: ai, linux, opensource, machinelearning
 hashnode_tags:
   - offline-ai
@@ -90,7 +90,7 @@ Those numbers are gates. I will publish the real ThinkPad figures when Phase 0 a
 
 ## Where the work stands
 
-English is the first language. The data format keeps a language tag so Sinhala can be added later without rewriting the skills. The desktop target is a minimal Debian with LXQt. The product name is not chosen yet. The series name, until then, is Offline AI OS.
+English is the first language. The data format keeps a language tag so Sinhala can be added later without rewriting the skills. The desktop target is a minimal Debian with LXQt. The system is called Hearthlen. The wake phrase will be “hey Hearthlen”.
 
 I am building this in the open because I want the constraints visible: ordinary hardware, local models, a short skill list, and a memory the owner can see.
 

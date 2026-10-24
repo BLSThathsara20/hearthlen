@@ -38,11 +38,11 @@ Numbers go in `docs/benchmarks/` inside the repo, created in Phase 0. Model weig
 
 **You learn:** wake words, speech-to-text, Piper, and a language manifest.
 
-**Work.** Choose `ASSISTANT_NAME` before training the wake phrase. Add openWakeWord, faster-whisper, and Piper behind the daemon. English models only, selected by the `en` manifest entry. Speech-to-text and Piper start per utterance and exit. The card and the spoken line say the same sentence.
+**Work.** Train the wake phrase “hey Hearthlen”. Add openWakeWord, faster-whisper, and Piper behind the daemon. English models only, selected by the `en` manifest entry. Speech-to-text and Piper start per utterance and exit. The card and the spoken line say the same sentence.
 
 **RAM gate.** Always-on RAM, including the wake word, stays around 150–250MB. The speech models are absent from that figure because they have exited.
 
-**Exit.** “Hey &lt;name&gt;, play Shape of You on YouTube” completes. The assistant path is offline. YouTube itself may use the network. Wake-to-action time is logged. A second manifest entry can point at future Sinhala files without a pipeline change.
+**Exit.** “Hey Hearthlen, play Shape of You on YouTube” completes. The assistant path is offline. YouTube itself may use the network. Wake-to-action time is logged. A second manifest entry can point at future Sinhala files without a pipeline change.
 
 ## Phase 4 — Training
 

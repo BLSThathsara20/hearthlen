@@ -9,7 +9,7 @@ DEV profile: [https://dev.to/savinduthathsara](https://dev.to/savinduthathsara)
 
 ## Posts
 
-Publish in this order. They are one series: **Offline AI OS**.
+Publish in this order. They are one series: **Hearthlen**.
 
 | File | SEO title | Dev.to tags (max 4) |
 |---|---|---|

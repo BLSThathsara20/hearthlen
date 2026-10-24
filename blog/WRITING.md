@@ -32,7 +32,7 @@ Frontmatter on every file, same shape as [01-offline-ai-operating-system.md](01-
 - `seo_description`: about 140–160 characters, includes Savindu Thathsara once
 - `devto_tags`: exactly four, from tags developers already follow: `ai`, `linux`, `opensource`, `machinelearning`, `privacy`, `productivity`, `tutorial`, `python`
 - `hashnode_tags`: the specific phrases, such as `local-llm`, `edge-ai`, `build-in-public`
-- Series name stays `Offline AI OS`
+- Series name stays `Hearthlen`
 - Use the keywords in the title and the first paragraph. Do not paste a keyword list at the bottom
 
 Keywords for this project: offline AI operating system, local LLM, on-device AI assistant, small language model, edge AI, privacy-first AI, lightweight Linux, llama.cpp, 8GB RAM, build in public.

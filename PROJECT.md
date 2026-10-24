@@ -1,8 +1,8 @@
-# Offline AI-Powered Lightweight OS
+# Hearthlen
 
-> Working name: TBD
+> Name: Hearthlen
 > Author: Savindu Thathsara
-> Status: Planning / Phase 0
+> Status: Phase 0, installer ready
 
 ---
 
@@ -108,7 +108,7 @@ Skills are small pieces of normal code that do one thing reliably. The AI only c
 **Example flow:**
 
 ```
-"Hey [name], play Shape of You on YouTube"
+"Hey Hearthlen, play Shape of You on YouTube"
   → wake word detected
   → speech-to-text: "play shape of you on youtube"
   → Tier 1 model: play_youtube(query="Shape of You")
@@ -266,7 +266,7 @@ Mac (Cursor) → git push → GitHub
 - [ ] Signed APT repository + rollback
 
 ### Phase 6 — Polish and release
-- [ ] Custom branding (wallpaper, boot screen, assistant name)
+- [ ] Custom branding (wallpaper, boot screen). The name is Hearthlen.
 - [ ] Rewrite the always-on daemon in Rust or Go for lower RAM
 - [ ] Benchmark video vs Windows and standard Ubuntu on the same laptop
 - [ ] LinkedIn post
@@ -289,7 +289,7 @@ Compare against a fresh Windows install and standard Ubuntu on the same ThinkPad
 
 ## 11. Open decisions
 
-- [ ] OS and assistant name
+- [x] OS and assistant name: Hearthlen
 - [ ] Mac architecture (Apple Silicon or Intel) — affects local ISO testing
 - [ ] Languages for the first version (English only, or English + Sinhala)
 - [ ] LXQt vs Xfce final choice

@@ -4,7 +4,7 @@ subtitle: "The RAM budget behind an offline assistant: what stays loaded, and wh
 slug: local-ai-assistant-8gb-ram
 seo_title: "Run a Local LLM Assistant on 8GB RAM"
 seo_description: "Savindu Thathsara's RAM budget for an offline AI assistant on 8GB: a tiny always-on model, then whisper, llama.cpp, and a voice that exit when the reply is done."
-series: "Offline AI OS"
+series: "Hearthlen"
 devto_tags: ai, linux, machinelearning, tutorial
 hashnode_tags:
   - local-llm
@@ -33,7 +33,7 @@ email: savindu@savithathsara.me
 
 Eight gigabytes sounds like enough until a browser and a language model want it at the same time. The test machine for this project is a ThinkPad with 8GB of RAM and no discrete GPU. YouTube still has to play. The assistant still has to answer. Whatever the assistant borrows, it has to give back.
 
-I'm Savindu Thathsara, and this is the third note in the Offline AI OS series. The project is a lightweight Linux system with a local AI assistant and no cloud model API. The habit loop is in the previous post, [a local assistant that learns your habits](02-assistant-that-learns-your-habits.md). This one is only about fitting.
+I'm Savindu Thathsara, and this is the third note in the Hearthlen series. The project is a lightweight Linux system with a local AI assistant and no cloud model API. The habit loop is in the previous post, [a local assistant that learns your habits](02-assistant-that-learns-your-habits.md). This one is only about fitting.
 
 ## The split
 

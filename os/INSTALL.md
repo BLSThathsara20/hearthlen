@@ -26,8 +26,8 @@ The first command lists external disks. The second writes only if you type that 
 3. Connect to the network, then:
 
 ```bash
-git clone https://github.com/BLSThathsara20/ai-os.git
-cd ai-os
+git clone https://github.com/BLSThathsara20/hearthlen.git
+cd hearthlen
 ./os/scripts/setup.sh
 sudo reboot
 ```

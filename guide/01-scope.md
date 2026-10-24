@@ -60,7 +60,7 @@ These are real parts of the idea. They are not in the first build.
 - A second browser-automation stack on the installed system. YouTube opens in Chromium at the video page.
 - A discrete GPU, CUDA, or any cloud inference.
 - The assistant inventing shell commands. If there is no skill, it says so.
-- Final wallpaper, boot artwork, and the assistant’s public name. Those belong to the polish phase. Until then the name is a setting.
+- Final wallpaper and boot artwork. Those belong to the polish phase. The name is already Hearthlen.
 - Rewriting the always-on program in Rust or Go. Python is the prototype. A rewrite happens only if the memory numbers require it.
 
 ## Memory budget
@@ -87,6 +87,6 @@ Version 1 is good when all of these are true:
 - Risky actions ask first, and actions can be traced.
 - Boot time, idle RAM, response time, and accuracy are written down for the release.
 
-## Working name
+## Name
 
-The product name is still open. Notes call it the assistant. The wake phrase will use the name once you choose it, because the wake-word model is trained for that phrase.
+The system and the assistant are both called Hearthlen. The wake phrase is “hey Hearthlen”. Wallpaper and the boot screen come in the polish phase. The domain to hold is hearthlen.com.

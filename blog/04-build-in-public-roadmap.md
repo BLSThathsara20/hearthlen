@@ -4,7 +4,7 @@ subtitle: "Seven phases, what each one has to prove, and the post I will publish
 slug: offline-ai-os-roadmap-build-in-public
 seo_title: "Build in Public: Offline AI OS Roadmap"
 seo_description: "Savindu Thathsara's build-in-public roadmap for an offline AI OS: baseline the 8GB laptop, measure local models, then skills, voice, training, and safe updates."
-series: "Offline AI OS"
+series: "Hearthlen"
 devto_tags: ai, linux, opensource, productivity
 hashnode_tags:
   - build-in-public
@@ -60,11 +60,11 @@ I am also learning the stack while I build it. The phases are the course: packag
 
 A major result gets its own post. A passing benchmark, a missed benchmark, a skill that works from a sentence, a rollback that actually rolled back. Not a dependency bump, and not a claim that uses a number I have not measured.
 
-The posts stay in this series, Offline AI OS. The first paragraph will be the result, not a tour of the repository.
+The posts stay in this series, Hearthlen. The first paragraph will be the result, not a tour of the repository.
 
 ## Follow along
 
-The name of the system is still open. English ships first. Sinhala is a later set of weights on the same language tag, which matters to me and is not a promise for version 1.
+The system is called Hearthlen. English ships first. Sinhala is a later set of weights on the same language tag, which matters to me and is not a promise for version 1.
 
 If you want the constraints in one place: 8GB, no cloud model API, skills instead of guessed clicks, and a habit list you can read and delete.
 

@@ -199,7 +199,7 @@ def article_payload(meta: dict, body: str, canonical: str) -> dict:
         "published": True,
         "body_markdown": body,
         "tags": tags[:4],
-        "series": meta.get("series") or "Offline AI OS",
+        "series": meta.get("series") or "Hearthlen",
         "description": meta.get("seo_description") or "",
     }
     if canonical:

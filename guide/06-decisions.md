@@ -53,14 +53,15 @@
 
 ### Name
 
-- The setting is `ASSISTANT_NAME` until a real name is chosen.
-- The name is required before wake-word training, because the phrase is “hey” plus that name.
+- The product and the assistant are **Hearthlen**.
+- The wake phrase is “hey Hearthlen”.
+- The domain to register is hearthlen.com. It was free when the name was chosen.
 
 ## Open
 
 | Decision | When it closes |
 |---|---|
-| The assistant’s name, wallpaper, and boot screen | Before wake-word training for the name. Artwork in Phase 6. |
+| Wallpaper and boot screen | Phase 6. The name is Hearthlen. |
 | Qwen3 1.7B or Llama 3.2 1B, or a smaller model if neither fits | Phase 1, from ThinkPad measurements |
 | faster-whisper `base` or `small` | Phase 1, from speed and RAM on short English clips. Start the measurement at `base` int8. |
 | When Sinhala sentences and voices start | After English test-set accuracy is recorded |
