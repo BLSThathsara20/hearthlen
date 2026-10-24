@@ -14,4 +14,4 @@ When a phase exits, a skill works end to end, a benchmark is measured, or a desi
 5. Run `python3 blog/publish.py blog/NN-short-slug.md`.
 6. Leave API keys in `.env` only. Never write them into a post, a rule, or a commit.
 
-Skip typos, dependency bumps, and refactors that have no lesson. Series name: Offline AI OS. Author: Savindu Thathsara, https://savithathsara.me, savindu@savithathsara.me.
+Skip typos, dependency bumps, and refactors that have no lesson. Series name: Hearthlen. Author: Savindu Thathsara, https://savithathsara.me, savindu@savithathsara.me.
