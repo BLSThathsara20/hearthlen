@@ -1,0 +1,17 @@
+---
+description: Turn each major project result into a public Dev.to and Hashnode post with a concrete hook.
+alwaysApply: true
+---
+
+# Publish major results
+
+When a phase exits, a skill works end to end, a benchmark is measured, or a design change is worth sharing, write one post and publish it in the same session.
+
+1. Read `blog/WRITING.md` and follow it.
+2. Add `blog/NN-short-slug.md` with frontmatter matching `blog/01-offline-ai-operating-system.md`.
+3. Open on a concrete hook in the first two sentences. No "in this article I will".
+4. Report measured numbers only from `docs/benchmarks/` or a command just run. Targets stay targets.
+5. Run `python3 blog/publish.py blog/NN-short-slug.md`.
+6. Leave API keys in `.env` only. Never write them into a post, a rule, or a commit.
+
+Skip typos, dependency bumps, and refactors that have no lesson. Series name: Offline AI OS. Author: Savindu Thathsara, https://savithathsara.me, savindu@savithathsara.me.

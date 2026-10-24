@@ -1,0 +1,4 @@
+# Compressed RAM. 25% of the machine, so an 8GB laptop keeps the rest for the browser.
+ALGO=zstd
+PERCENT=25
+PRIORITY=100

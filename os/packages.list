@@ -1,0 +1,27 @@
+# Packages for the Phase 0 desktop. One name per line.
+# The setup script ignores blank lines and lines that start with #.
+
+sudo
+git
+curl
+ca-certificates
+htop
+
+lxqt-core
+sddm
+network-manager
+nm-tray
+pipewire
+pipewire-pulse
+wireplumber
+
+chromium
+mesa-va-drivers
+intel-media-va-driver
+vainfo
+
+zram-tools
+
+firmware-linux
+firmware-iwlwifi
+firmware-amd-graphics

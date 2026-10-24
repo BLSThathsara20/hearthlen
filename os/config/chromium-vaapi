@@ -1,0 +1,2 @@
+# Hardware video decode on the integrated GPU.
+export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --enable-features=VaapiVideoDecoder"

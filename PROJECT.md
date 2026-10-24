@@ -1,0 +1,310 @@
+# Offline AI-Powered Lightweight OS
+
+> Working name: TBD
+> Author: Savindu Thathsara
+> Status: Planning / Phase 0
+
+---
+
+## 1. Vision
+
+A very lightweight, speed-optimised Linux-based operating system with a built-in **offline AI personal assistant**, designed for **normal, non-technical laptop users** on ordinary hardware.
+
+The user opens the laptop, the assistant is already running, and they simply speak or type what they want in plain language:
+
+- "Play Shape of You on YouTube"
+- "Open my last Word document"
+- "Make the screen brighter"
+- "Find the photos from my graduation"
+
+The assistant understands and does it — **accurately, quickly, and without internet**.
+
+### What makes it different
+
+- **Offline first** — all AI runs locally. No cloud APIs. User data never leaves the laptop.
+- **Speed optimised** — the OS and AI must run smoothly on an 8GB laptop with no graphics card.
+- **Accurate** — the assistant uses a library of reliable skills instead of guessing clicks on the screen. A model trained by me maps commands to skills.
+- **For normal people** — no technical knowledge needed. Simple, friendly UI and voice.
+- **Self-updating** — devices update automatically from GitHub, safely and with rollback.
+
+---
+
+## 2. Target hardware
+
+The baseline device (and test device) is a typical everyday laptop:
+
+| Spec | Target |
+|---|---|
+| Example device | Lenovo ThinkPad |
+| RAM | 8GB |
+| Storage | 256GB SSD |
+| GPU | None (integrated graphics only) |
+| CPU | Standard Intel/AMD x86_64 |
+| Internet | Optional (only needed for updates and online content like YouTube) |
+
+Everything must work well on this hardware. If it doesn't, it's a bug.
+
+---
+
+## 3. Core principles
+
+1. **The user's apps come first.** The OS and AI must leave most of the RAM for the user.
+2. **The AI must never make the laptop slow.** Heavy models load only when needed and unload afterwards.
+3. **No cloud dependency.** Every AI feature works offline.
+4. **Accuracy over "do anything".** Start with a focused set of skills that work perfectly, then grow.
+5. **Safe by default.** Risky actions (delete, send, buy) always ask for confirmation. Changes can be undone.
+6. **Measure everything.** Boot time, RAM, response time and accuracy are tracked for every release.
+
+---
+
+## 4. Resource budget (8GB RAM)
+
+| Component | Target RAM |
+|---|---|
+| Base OS + desktop at idle | ~400–600MB |
+| Always-on AI (wake word, command understanding) | ~150–250MB |
+| On-demand AI (speech-to-text, small LLM, voice reply) | ~1.5–2GB, only while working |
+| Left for the user (browser, YouTube, documents) | 5GB+ |
+
+---
+
+## 5. Architecture
+
+### 5.1 Base OS
+
+- **Base:** Debian 13 (stable), minimal netinstall — standard system utilities only
+- **Desktop:** LXQt (core packages only)
+- **Network:** NetworkManager
+- **Audio:** PipeWire
+- **Browser:** Chromium with hardware video decoding (VA-API) so YouTube runs on integrated graphics, not the CPU
+- **Speed settings:** zram enabled, unnecessary services removed, fast boot tuning (`systemd-analyze blame`)
+
+### 5.2 AI assistant — two-tier brain
+
+**Tier 1 — Fast command model (always on, trained by me)**
+- Tiny model (MiniLM / DistilBERT size), exported to ONNX
+- Recognises the intent (e.g. `play_music`) and extracts details (e.g. song = "Shape of You")
+- Responds in milliseconds
+- Should handle the large majority of everyday commands
+
+**Tier 2 — Small LLM (on demand only)**
+- 1–2B model (e.g. Qwen3 1.7B or Llama 3.2 1B), 4-bit quantized
+- Runs on CPU via llama.cpp
+- Used only when Tier 1 isn't confident
+- Unloads after a short idle time to free memory
+
+### 5.3 Voice (all offline)
+
+| Function | Tool |
+|---|---|
+| Wake word | openWakeWord |
+| Speech-to-text | faster-whisper (base or small, int8) |
+| Spoken reply | Piper TTS |
+
+### 5.4 Skills
+
+Skills are small pieces of normal code that do one thing reliably. The AI only chooses the skill and fills in the details; the skill performs the action.
+
+**Example flow:**
+
+```
+"Hey [name], play Shape of You on YouTube"
+  → wake word detected
+  → speech-to-text: "play shape of you on youtube"
+  → Tier 1 model: play_youtube(query="Shape of You")
+  → skill opens browser, searches YouTube, plays first result (Playwright)
+  → spoken reply: "Playing Shape of You"
+```
+
+**First version skills (MVP):**
+
+- `play_youtube(query)`
+- `open_app(name)`
+- `set_volume(level)` / `volume_up()` / `volume_down()` / `mute()`
+- `set_brightness(level)`
+- `find_file(description)`
+- `open_file(path)`
+- `web_search(query)`
+- `set_reminder(time, text)`
+- `take_screenshot()`
+- `wifi_on()` / `wifi_off()`
+
+**Later:** expand to the 30–50 most common everyday tasks.
+
+### 5.5 Safety
+
+- Actions that delete, send, pay or change important settings **always ask "Are you sure?"**
+- All actions are logged so they can be undone
+- The assistant never runs arbitrary shell commands generated by the LLM
+
+---
+
+## 6. Training plan
+
+1. **Build a dataset** of everyday commands phrased the way normal people actually talk — including casual and messy phrasing:
+   - "put some music on"
+   - "I can't hear anything" → volume up
+   - "where's that photo from my graduation"
+2. **Label** each command with its skill and details (JSON format).
+3. **Split** into training and test sets. The test set is never used for training.
+4. **Fine-tune** the Tier 1 model on the dataset.
+5. **Evaluate** accuracy per skill, and compare against a general model without training.
+6. **Optionally** fine-tune the Tier 2 LLM with LoRA for harder cases.
+
+---
+
+## 7. Development workflow
+
+### 7.1 Machines
+
+- **Mac** — main development machine (Cursor)
+- **Lenovo ThinkPad** — test device, runs the OS
+
+### 7.2 Flow
+
+```
+Mac (Cursor) → git push → GitHub
+                            ↓
+                   GitHub Actions (x86 runners)
+                   - run tests
+                   - build .deb packages
+                   - build ISO
+                            ↓
+              GitHub Releases / own APT repository
+                            ↓
+          ThinkPad (when online) → checks for update
+                                 → downloads in background
+                                 → applies when idle
+```
+
+### 7.3 First install
+
+1. GitHub Actions builds the ISO with Debian live-build
+2. Download the ISO from GitHub Releases
+3. Write it to a USB drive (balenaEtcher or `dd`)
+4. Boot the ThinkPad from USB and install
+
+> Note: if the Mac is Apple Silicon (ARM), building x86 ISOs locally is slow. Build ISOs in GitHub Actions instead.
+
+### 7.4 Automatic updates
+
+**Stage 1 — Development:**
+- systemd timer on the ThinkPad checks the repo every 10–15 minutes when online
+- Pulls the latest `stable` commit, runs setup scripts, restarts the AI service
+- Can use `ansible-pull`
+
+**Stage 2 — Real users:**
+- GitHub Actions builds signed `.deb` packages
+- Published to my own APT repository (e.g. hosted on GitHub Pages)
+- Devices update through Debian's normal system with `unattended-upgrades`
+
+### 7.5 Update safety rules
+
+1. **Two branches:** `dev` for experiments, `stable` for devices
+2. **Signed releases:** devices only install updates signed with my key
+3. **Never update mid-task:** download in background, apply when idle or at restart
+4. **Automatic rollback:** if the AI service fails after an update, revert to the previous version
+
+---
+
+## 8. Suggested repository structure
+
+```
+/
+├── PROJECT.md              # this file
+├── os/
+│   ├── packages.list       # every package installed, nothing else
+│   ├── config/             # system configs (zram, services, desktop)
+│   ├── live-build/         # ISO build configuration
+│   └── scripts/            # idempotent setup scripts
+├── assistant/
+│   ├── daemon/             # always-on background service
+│   ├── skills/             # one file per skill
+│   ├── voice/              # wake word, STT, TTS
+│   └── models/             # model configs (no weights in git)
+├── training/
+│   ├── data/               # command dataset
+│   ├── intent_model/       # Tier 1 training code
+│   └── eval/               # test set + evaluation scripts
+├── updater/                # update checker, rollback logic
+├── .github/workflows/      # CI: tests, package build, ISO build
+└── docs/
+```
+
+---
+
+## 9. Roadmap
+
+### Phase 0 — Foundation
+- [ ] Install Debian minimal + LXQt on the ThinkPad
+- [ ] Record baseline: boot time, idle RAM, YouTube playback
+- [ ] Put all setup steps into scripts under Git
+
+### Phase 1 — Feasibility tests
+- [ ] Run a 1–2B model in llama.cpp, measure speed on CPU
+- [ ] Test faster-whisper on voice clips, measure speed
+- [ ] Confirm the RAM budget is realistic
+
+### Phase 2 — First working pipeline (text only)
+- [ ] Simple intent classifier
+- [ ] `play_youtube` skill working end-to-end
+- [ ] Add the remaining MVP skills
+
+### Phase 3 — Voice
+- [ ] Wake word
+- [ ] Speech-to-text
+- [ ] Spoken replies
+
+### Phase 4 — Training
+- [ ] Build and label the command dataset
+- [ ] Train Tier 1 model, measure accuracy
+- [ ] Add Tier 2 LLM fallback
+
+### Phase 5 — Self-updating OS
+- [ ] Git-pull updater with systemd timer
+- [ ] GitHub Actions ISO build
+- [ ] Signed APT repository + rollback
+
+### Phase 6 — Polish and release
+- [ ] Custom branding (wallpaper, boot screen, assistant name)
+- [ ] Rewrite the always-on daemon in Rust or Go for lower RAM
+- [ ] Benchmark video vs Windows and standard Ubuntu on the same laptop
+- [ ] LinkedIn post
+
+---
+
+## 10. Metrics to track
+
+| Metric | How |
+|---|---|
+| Boot time | `systemd-analyze` |
+| Idle RAM | `free -h` |
+| Wake word → action time | logged by the assistant |
+| Command accuracy | evaluation script on the test set |
+| Peak RAM during AI use | monitoring during tests |
+
+Compare against a fresh Windows install and standard Ubuntu on the same ThinkPad.
+
+---
+
+## 11. Open decisions
+
+- [ ] OS and assistant name
+- [ ] Mac architecture (Apple Silicon or Intel) — affects local ISO testing
+- [ ] Languages for the first version (English only, or English + Sinhala)
+- [ ] LXQt vs Xfce final choice
+
+---
+
+## 12. Notes for AI coding assistants (Cursor)
+
+When generating code for this project:
+
+- **Never use cloud AI APIs.** All inference must run locally.
+- **Respect the RAM budget** in section 4. Prefer lightweight libraries.
+- **Target Debian 13, x86_64, CPU only.** No CUDA, no GPU assumptions.
+- **Skills must be deterministic code**, not LLM-generated shell commands.
+- **Risky actions must require confirmation** and be logged for undo.
+- **Setup scripts must be idempotent** (safe to run many times).
+- **Model weights are never committed to Git.**
+- Python is fine for prototyping and training; the always-on daemon may later move to Rust or Go.
